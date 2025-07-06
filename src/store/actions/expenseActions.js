@@ -14,7 +14,7 @@ export const setExpensesAction = (expense) => {
                 const prevExpenses = getState().expenses.expenses
                 const { expensesLength } = getState().expenses
                 const newExpenses = [...prevExpenses, data.expense]
-                dispatch(setExpenses({ expenses: newExpenses, expensesLength: expensesLength + 1 }))
+                await dispatch(setExpenses({ expenses: newExpenses, expensesLength: expensesLength + 1 }))
             }
 
         } catch (err) {
@@ -33,7 +33,7 @@ export const getExpensesAction = (rowsperpage, page) => {
             const { data } = await axios.get(`http://localhost:4000/user/getexpenses?rowsperpage=${rowsperpage}&page=${page + 1}`, { headers: { token: token } })
             console.log("data",data)
             if (data) {
-                dispatch(setExpenses({ expenses: data.expenses, expensesLength: data.expensesLength }))
+                await dispatch(setExpenses({ expenses: data.expenses, expensesLength: data.expensesLength }))
                 if (data.isPremiumUser) {
                     dispatch(setIsPremium())
                 }
@@ -57,7 +57,7 @@ export const deleteExpenseAction = (id) => {
                 const allExpenses = getState().expenses.expenses
                 const { expensesLength } = getState().expenses
                 const filteredExpenses = allExpenses.filter(val => val._id !== id)
-                dispatch(setExpenses({ expenses: filteredExpenses, expensesLength: expensesLength - 1 }))
+                await dispatch(setExpenses({ expenses: filteredExpenses, expensesLength: expensesLength - 1 }))
             }
         } catch (error) {
             console.log(error)

@@ -5,7 +5,7 @@ const AddExpenseForm = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("expense");
+  const [category, setCategory] = useState("transport");
   const [date, setDate] = useState("");
 
   // when user add some expense
@@ -23,7 +23,7 @@ const AddExpenseForm = () => {
 
   return (
     <form
-      className="flex justify-center items-center gap-3 p-4 bg-blue-900 text-white"
+      className="flex justify-center items-center gap-3 p-4 bg-blue-900 text-white mt-20"
       onSubmit={addExpenseHandeler}
     >
       <div className=" flex justify-center items-center gap-2">
@@ -76,8 +76,16 @@ const AddExpenseForm = () => {
           }}
           value={category}
         >
-          <option value={"expense"}>Expense</option>
-          <option value={"credit"}>Credit</option>
+          <option value={"transport"}>Transport</option>
+          <option value={"salary"}>Salary</option>
+          <option value={"food"}>Food</option>
+          <option value={"shopping"}>Shopping</option>
+          <option value={"education"}>Education</option>
+          <option value={"housing"}>Housing</option>
+          <option value={"bills"}>Bills</option>
+          <option value={"entertainment"}>Entertainment</option>
+          <option value={"miscellaneous"}>Miscellaneous</option>
+        
         </select>
       </div>
 

@@ -10,9 +10,8 @@ const Expense = ({ name, price, category, date, id }) => {
 
   return (
     <div
-      className={`w-[90%] md:w-[900px] m-auto flex justify-between items-center ${
-        category === "expense" ? "bg-red-300" : "bg-green-300"
-      }  font-popins p-4 rounded-md`}
+      className={`w-[90%] md:w-[900px] m-auto flex justify-between items-center bg-green-300
+        font-popins p-4 rounded-md`}
     >
       <div className=" flex flex-col justify-center items-center">
         <h1 className=" text-xl font-bold">DATE : {date}</h1>

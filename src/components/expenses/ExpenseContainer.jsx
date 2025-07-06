@@ -27,7 +27,7 @@ const ExpenseContainer = () => {
 
   // pagination
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -45,14 +45,16 @@ const ExpenseContainer = () => {
       try {
         console.log("refresh");
        
-        dispatch(getExpensesAction(rowsPerPage, page));
-         
+        await dispatch(getExpensesAction(rowsPerPage, page));
+        if (expensesLength <= page * rowsPerPage && page > 0) {
+        setPage(page - 1);
+      } 
         
       } catch (error) {
         console.log(error);
       }
     }) ();
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, expensesLength]);
 
   // when user want to buy premium
   const buyPremiumHandeler = async () => {
@@ -84,12 +86,12 @@ const ExpenseContainer = () => {
     <div className=" mt-10 flex flex-col gap-2">
       <div className="flex justify-center items-center gap-2 ">
         {isPremiumUser ? (
-          <button className=" bg-blue-800 text-white px-5 py-2 rounded-md">
+          <button className=" bg-green-800 text-white px-5 py-2 rounded-md">
             Premium User
           </button>
         ) : (
           <button
-            className=" bg-blue-800 text-white px-5 py-2 rounded-md"
+            className=" bg-red-800 text-white px-5 py-2 rounded-md"
             onClick={buyPremiumHandeler}
           >
             Buy Premium
@@ -98,6 +100,8 @@ const ExpenseContainer = () => {
         <button
           onClick={logOutHandeler}
           className=" bg-blue-800 text-white px-5 py-2 rounded-md"
+        style={{ position: "absolute", right: "0rem", top: "0rem" }}
+
         >
           Log Out
         </button>
@@ -140,7 +144,7 @@ const ExpenseContainer = () => {
               return (
                 <LeaderBoard
                   key={Math.random()}
-                  userName={val.userName}
+                  userName={val.username}
                   totalAmount={val.totalTransaction}
                 />
               );
